@@ -1,12 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Globe } from "lucide-react";
 
 import { AdSlot } from "@/components/wc/ad-slot";
 import { CitySearch } from "@/components/wc/city-search";
 import { DstPanel } from "@/components/wc/dst-panel";
 import { HeroClock } from "@/components/wc/hero-clock";
 import { PopularCities } from "@/components/wc/popular-cities";
+import { PageSection as Section, SiteLayout } from "@/components/wc/site-layout";
 import { SunTimes } from "@/components/wc/sun-times";
 import { TimeConverter } from "@/components/wc/time-converter";
 import { WorldClockGrid } from "@/components/wc/world-clock-grid";
@@ -42,35 +42,6 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-function Section({
-  id,
-  eyebrow,
-  title,
-  description,
-  children,
-}: {
-  id: string;
-  eyebrow: string;
-  title: string;
-  description?: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <section id={id} aria-labelledby={`${id}-title`} className="scroll-mt-24">
-      <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground/70">
-        {eyebrow}
-      </p>
-      <h2 id={`${id}-title`} className="mt-2 text-2xl font-semibold tracking-[-0.02em] sm:text-3xl">
-        {title}
-      </h2>
-      {description && (
-        <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">{description}</p>
-      )}
-      <div className="mt-7">{children}</div>
-    </section>
-  );
-}
-
 function Index() {
   const [tz, setTz] = useState("UTC");
   const [selected, setSelected] = useState<City | null>(null);
@@ -82,23 +53,8 @@ function Index() {
   const activeTz = selected?.tz ?? tz;
 
   return (
-    <div className="min-h-screen bg-background">
-      <header className="sticky top-0 z-30 border-b border-hairline/70 bg-background/80 backdrop-blur-md">
-        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5">
-          <a href="/" className="flex items-center gap-2 font-semibold tracking-[-0.02em]">
-            <Globe className="size-5 text-muted-foreground" aria-hidden="true" />
-            World Clock
-          </a>
-          <nav aria-label="Sections" className="hidden gap-7 text-sm text-muted-foreground sm:flex">
-            <a href="#clocks" className="transition-colors hover:text-foreground">Clocks</a>
-            <a href="#converter" className="transition-colors hover:text-foreground">Converter</a>
-            <a href="#dst" className="transition-colors hover:text-foreground">DST</a>
-            <a href="#sun" className="transition-colors hover:text-foreground">Sun times</a>
-          </nav>
-        </div>
-      </header>
-
-      <main className="mx-auto max-w-6xl px-5 pb-24">
+    <SiteLayout>
+      <>
         <section
           aria-label="Current local time"
           className="rounded-[calc(var(--radius)+12px)] px-4 py-16 sm:py-24"
@@ -175,14 +131,7 @@ function Index() {
 
           <AdSlot label="Sponsored placement" format="footer" />
         </div>
-      </main>
-
-      <footer className="border-t border-hairline">
-        <div className="mx-auto flex max-w-6xl flex-col gap-2 px-5 py-10 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-          <p>World Clock — live local times and time zone tools.</p>
-          <p>Times use the IANA time zone database via your browser.</p>
-        </div>
-      </footer>
-    </div>
+      </>
+    </SiteLayout>
   );
 }
