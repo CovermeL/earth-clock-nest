@@ -44,14 +44,16 @@ export function tzOffsetMinutes(tz: string, date = new Date()): number {
     minute: "2-digit",
     second: "2-digit",
   });
-  const parts = Object.fromEntries(dtf.formatToParts(date).map((p) => [p.type, p.value]));
+  const parts: Record<string, string> = Object.fromEntries(
+    dtf.formatToParts(date).map((p) => [p.type, p.value]),
+  );
   const asUTC = Date.UTC(
-    Number(parts.year),
-    Number(parts.month) - 1,
-    Number(parts.day),
-    Number(parts.hour) % 24,
-    Number(parts.minute),
-    Number(parts.second),
+    Number(parts["year"]),
+    Number(parts["month"]) - 1,
+    Number(parts["day"]),
+    Number(parts["hour"]) % 24,
+    Number(parts["minute"]),
+    Number(parts["second"]),
   );
   return Math.round((asUTC - date.getTime()) / 60000);
 }
