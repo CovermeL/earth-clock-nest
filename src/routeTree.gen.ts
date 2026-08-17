@@ -10,11 +10,17 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ConverterRouteImport } from './routes/converter'
 import { Route as WorldClocksRouteImport } from './routes/world-clocks'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConverterRoute = ConverterRouteImport.update({
+  id: '/converter',
+  path: '/converter',
   getParentRoute: () => rootRouteImport,
 } as any)
 const WorldClocksRoute = WorldClocksRouteImport.update({
@@ -25,27 +31,31 @@ const WorldClocksRoute = WorldClocksRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/converter': typeof ConverterRoute
   '/world-clocks': typeof WorldClocksRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/converter': typeof ConverterRoute
   '/world-clocks': typeof WorldClocksRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/converter': typeof ConverterRoute
   '/world-clocks': typeof WorldClocksRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/world-clocks'
+  fullPaths: '/' | '/converter' | '/world-clocks'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/world-clocks'
-  id: '__root__' | '/' | '/world-clocks'
+  to: '/' | '/converter' | '/world-clocks'
+  id: '__root__' | '/' | '/converter' | '/world-clocks'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ConverterRoute: typeof ConverterRoute
   WorldClocksRoute: typeof WorldClocksRoute
 }
 
@@ -56,6 +66,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/converter': {
+      id: '/converter'
+      path: '/converter'
+      fullPath: '/converter'
+      preLoaderRoute: typeof ConverterRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/world-clocks': {
@@ -70,6 +87,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ConverterRoute: ConverterRoute,
   WorldClocksRoute: WorldClocksRoute,
 }
 export const routeTree = rootRouteImport
