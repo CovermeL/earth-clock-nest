@@ -40,7 +40,7 @@ export function HeroClock({ tz }: { tz: string }) {
         </Pill>
         <Pill>{tz.replace(/_/g, " ")}</Pill>
         <Pill>{offset}</Pill>
-        {now && <Pill>{tzAbbreviation(tz, now)}</Pill>}
+        {now && tzAbbreviation(tz, now) !== tz && <Pill>{tzAbbreviation(tz, now)}</Pill>}
         <Pill>
           {dst
             ? dst.observesDst
