@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ConverterRouteImport } from './routes/converter'
+import { Route as DaylightSavingRouteImport } from './routes/daylight-saving'
 import { Route as WorldClocksRouteImport } from './routes/world-clocks'
 
 const IndexRoute = IndexRouteImport.update({
@@ -23,6 +24,11 @@ const ConverterRoute = ConverterRouteImport.update({
   path: '/converter',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DaylightSavingRoute = DaylightSavingRouteImport.update({
+  id: '/daylight-saving',
+  path: '/daylight-saving',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const WorldClocksRoute = WorldClocksRouteImport.update({
   id: '/world-clocks',
   path: '/world-clocks',
@@ -32,30 +38,34 @@ const WorldClocksRoute = WorldClocksRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/converter': typeof ConverterRoute
+  '/daylight-saving': typeof DaylightSavingRoute
   '/world-clocks': typeof WorldClocksRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/converter': typeof ConverterRoute
+  '/daylight-saving': typeof DaylightSavingRoute
   '/world-clocks': typeof WorldClocksRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/converter': typeof ConverterRoute
+  '/daylight-saving': typeof DaylightSavingRoute
   '/world-clocks': typeof WorldClocksRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/converter' | '/world-clocks'
+  fullPaths: '/' | '/converter' | '/daylight-saving' | '/world-clocks'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/converter' | '/world-clocks'
-  id: '__root__' | '/' | '/converter' | '/world-clocks'
+  to: '/' | '/converter' | '/daylight-saving' | '/world-clocks'
+  id: '__root__' | '/' | '/converter' | '/daylight-saving' | '/world-clocks'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ConverterRoute: typeof ConverterRoute
+  DaylightSavingRoute: typeof DaylightSavingRoute
   WorldClocksRoute: typeof WorldClocksRoute
 }
 
@@ -75,6 +85,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConverterRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/daylight-saving': {
+      id: '/daylight-saving'
+      path: '/daylight-saving'
+      fullPath: '/daylight-saving'
+      preLoaderRoute: typeof DaylightSavingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/world-clocks': {
       id: '/world-clocks'
       path: '/world-clocks'
@@ -88,6 +105,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ConverterRoute: ConverterRoute,
+  DaylightSavingRoute: DaylightSavingRoute,
   WorldClocksRoute: WorldClocksRoute,
 }
 export const routeTree = rootRouteImport
