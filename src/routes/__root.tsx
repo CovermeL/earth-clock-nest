@@ -77,13 +77,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "World Clock — Live Local Times & Time Zones" },
+      { title: "Earth Clock — Live Local Times & Time Zones" },
       {
         name: "description",
         content:
           "Live world clock with local times, UTC offsets, daylight saving status, a time zone converter and sunrise & sunset times.",
       },
-      { property: "og:title", content: "World Clock — Live Local Times & Time Zones" },
+      { property: "og:title", content: "Earth Clock — Live Local Times & Time Zones" },
       {
         property: "og:description",
         content:

@@ -14,7 +14,7 @@ export function HeroClock({ tz }: { tz: string }) {
         {now ? dateInZone(tz, now) : "\u00a0"}
       </p>
 
-      <h1 className="sr-only">World Clock — current local time, time zones and UTC offsets</h1>
+      <h1 className="sr-only">Earth Clock — current local time, time zones and UTC offsets</h1>
 
       <div
         className="tnum mt-4 flex items-end justify-center gap-1 font-semibold leading-none tracking-[-0.04em]"
