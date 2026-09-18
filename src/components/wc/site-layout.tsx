@@ -16,7 +16,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-5">
           <Link to="/" className="flex shrink-0 items-center gap-2 font-semibold tracking-[-0.02em]">
             <Globe className="size-5 text-muted-foreground" aria-hidden="true" />
-            World Clock
+            Earth Clock
           </Link>
           <nav
             aria-label="Main"
@@ -40,7 +40,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
 
       <footer className="border-t border-hairline">
         <div className="mx-auto flex max-w-6xl flex-col gap-4 px-5 py-10 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-          <p>World Clock — live local times and time zone tools.</p>
+          <p>Earth Clock — earthclock.fyi — live local times and time zone tools.</p>
           <nav aria-label="Footer" className="flex flex-wrap gap-4">
             {NAV.map((item) => (
               <Link key={item.to} to={item.to} className="transition-colors hover:text-foreground">
