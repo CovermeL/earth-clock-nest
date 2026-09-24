@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ConverterRouteImport } from './routes/converter'
 import { Route as DaylightSavingRouteImport } from './routes/daylight-saving'
+import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as SunriseSunsetRouteImport } from './routes/sunrise-sunset'
 import { Route as WorldClocksRouteImport } from './routes/world-clocks'
 
@@ -30,6 +31,11 @@ const DaylightSavingRoute = DaylightSavingRouteImport.update({
   path: '/daylight-saving',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SunriseSunsetRoute = SunriseSunsetRouteImport.update({
   id: '/sunrise-sunset',
   path: '/sunrise-sunset',
@@ -45,6 +51,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/converter': typeof ConverterRoute
   '/daylight-saving': typeof DaylightSavingRoute
+  '/privacy': typeof PrivacyRoute
   '/sunrise-sunset': typeof SunriseSunsetRoute
   '/world-clocks': typeof WorldClocksRoute
 }
@@ -52,6 +59,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/converter': typeof ConverterRoute
   '/daylight-saving': typeof DaylightSavingRoute
+  '/privacy': typeof PrivacyRoute
   '/sunrise-sunset': typeof SunriseSunsetRoute
   '/world-clocks': typeof WorldClocksRoute
 }
@@ -60,6 +68,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/converter': typeof ConverterRoute
   '/daylight-saving': typeof DaylightSavingRoute
+  '/privacy': typeof PrivacyRoute
   '/sunrise-sunset': typeof SunriseSunsetRoute
   '/world-clocks': typeof WorldClocksRoute
 }
@@ -69,6 +78,7 @@ export interface FileRouteTypes {
     | '/'
     | '/converter'
     | '/daylight-saving'
+    | '/privacy'
     | '/sunrise-sunset'
     | '/world-clocks'
   fileRoutesByTo: FileRoutesByTo
@@ -76,6 +86,7 @@ export interface FileRouteTypes {
     | '/'
     | '/converter'
     | '/daylight-saving'
+    | '/privacy'
     | '/sunrise-sunset'
     | '/world-clocks'
   id:
@@ -83,6 +94,7 @@ export interface FileRouteTypes {
     | '/'
     | '/converter'
     | '/daylight-saving'
+    | '/privacy'
     | '/sunrise-sunset'
     | '/world-clocks'
   fileRoutesById: FileRoutesById
@@ -91,6 +103,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ConverterRoute: typeof ConverterRoute
   DaylightSavingRoute: typeof DaylightSavingRoute
+  PrivacyRoute: typeof PrivacyRoute
   SunriseSunsetRoute: typeof SunriseSunsetRoute
   WorldClocksRoute: typeof WorldClocksRoute
 }
@@ -118,6 +131,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DaylightSavingRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sunrise-sunset': {
       id: '/sunrise-sunset'
       path: '/sunrise-sunset'
@@ -139,6 +159,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ConverterRoute: ConverterRoute,
   DaylightSavingRoute: DaylightSavingRoute,
+  PrivacyRoute: PrivacyRoute,
   SunriseSunsetRoute: SunriseSunsetRoute,
   WorldClocksRoute: WorldClocksRoute,
 }
