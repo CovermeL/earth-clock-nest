@@ -47,6 +47,9 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                 {item.label}
               </Link>
             ))}
+            <Link to="/privacy" className="transition-colors hover:text-foreground">
+              Privacy
+            </Link>
           </nav>
         </div>
       </footer>
