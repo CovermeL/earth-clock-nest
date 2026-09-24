@@ -12,9 +12,9 @@ import { TimeConverter } from "@/components/wc/time-converter";
 import { WorldClockGrid } from "@/components/wc/world-clock-grid";
 import { CITIES, type City } from "@/lib/timezones";
 
-const TITLE = "Earth Clock — Live Local Times, Time Zones & UTC Offsets";
+const TITLE = "Earthclock.fyi — Live Local Times, Time Zones & UTC Offsets";
 const DESCRIPTION =
-  "See the live local time anywhere in the world. Current time zones, UTC offsets, daylight saving status, a time zone converter and sunrise & sunset times for major cities.";
+  "Earthclock.fyi shows the live local time anywhere in the world. Current time zones, UTC offsets, daylight saving status, a time zone converter and sunrise & sunset times for major cities.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
