@@ -1,19 +1,43 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { CITIES, formatOffset, tzOffsetMinutes } from "@/lib/timezones";
 
-function todayISO() {
-  const d = new Date();
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+function dateISOInZone(timeZone: string, date = new Date()) {
+  const parts = Object.fromEntries(
+    new Intl.DateTimeFormat("en-US", {
+      timeZone,
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    })
+      .formatToParts(date)
+      .map((part) => [part.type, part.value]),
+  );
+  return `${parts.year}-${parts.month}-${parts.day}`;
 }
 
 export function TimeConverter() {
   const [fromTz, setFromTz] = useState("Europe/London");
   const [toTz, setToTz] = useState("Asia/Tokyo");
   const [time, setTime] = useState("09:00");
-  const [date] = useState(todayISO);
+  const [date, setDate] = useState(() => dateISOInZone("Europe/London"));
+  const [followsToday, setFollowsToday] = useState(true);
+
+  useEffect(() => {
+    if (!followsToday) return;
+
+    const updateDate = () => {
+      const today = dateISOInZone(fromTz);
+      setDate((currentDate) => (currentDate === today ? currentDate : today));
+    };
+
+    updateDate();
+    const interval = window.setInterval(updateDate, 30_000);
+    return () => window.clearInterval(interval);
+  }, [fromTz, followsToday]);
 
   const result = useMemo(() => {
+    if (!date) return null;
     const [y, mo, d] = date.split("-").map(Number);
     const [h, mi] = time.split(":").map(Number);
     if ([y, mo, d, h, mi].some((n) => Number.isNaN(n))) return null;
@@ -44,6 +68,30 @@ export function TimeConverter() {
       <div className="space-y-3">
         <Field label="From" id="conv-from">
           <ZoneSelect id="conv-from" value={fromTz} onChange={setFromTz} />
+        </Field>
+        <Field label="Date" id="conv-date">
+          <div className="space-y-2">
+            <input
+              id="conv-date"
+              type="date"
+              value={date}
+              onChange={(e) => {
+                setDate(e.target.value);
+                setFollowsToday(false);
+              }}
+              className="tnum h-12 w-full rounded-[calc(var(--radius)-6px)] border border-hairline bg-surface px-4 text-base outline-none transition-colors focus:border-ring"
+            />
+            <button
+              type="button"
+              onClick={() => {
+                setDate(dateISOInZone(fromTz));
+                setFollowsToday(true);
+              }}
+              className="text-xs text-muted-foreground underline underline-offset-4 transition-colors hover:text-foreground"
+            >
+              Today
+            </button>
+          </div>
         </Field>
         <Field label="Time" id="conv-time">
           <input
