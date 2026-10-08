@@ -28,7 +28,7 @@ export function SunTimes({ cities }: { cities: City[] }) {
     <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
       {cities.map((c) => {
         const { sunrise, sunset } = now
-          ? sunTimes(c.lat, c.lon, now)
+          ? sunTimes(c.lat, c.lon, now, c.tz)
           : { sunrise: null, sunset: null };
         return (
           <li key={c.name} className="card-soft p-5">

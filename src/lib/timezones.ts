@@ -122,11 +122,35 @@ export function shortDateInZone(tz: string, date: Date) {
   }).format(date);
 }
 
-/** Approximate sunrise/sunset (NOAA algorithm), returned as UTC Date objects. */
-export function sunTimes(lat: number, lon: number, date = new Date()) {
+/** Approximate sunrise/sunset (NOAA algorithm) for the date in timeZone. */
+export function sunTimes(lat: number, lon: number, date = new Date(), timeZone = "UTC") {
   const rad = Math.PI / 180;
-  const start = Date.UTC(date.getUTCFullYear(), 0, 0);
-  const dayOfYear = Math.floor((Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()) - start) / 86400000);
+  const dateFormatter = new Intl.DateTimeFormat("en-US", {
+    timeZone,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  });
+  const localDateKey = (value: Date) => {
+    const parts = Object.fromEntries(
+      dateFormatter.formatToParts(value).map((part) => [part.type, part.value]),
+    );
+    return `${parts["year"]}-${parts["month"]}-${parts["day"]}`;
+  };
+  const targetDateKey = localDateKey(date);
+  const [year, month, day] = targetDateKey.split("-").map(Number);
+  const dateStart = Date.UTC(year!, month! - 1, day!);
+  const start = Date.UTC(year!, 0, 0);
+  const dayOfYear = Math.floor((dateStart - start) / 86400000);
+
+  const eventOnLocalDate = (utcHour: number): Date | null => {
+    const candidateMs = dateStart + utcHour * 3600000;
+    for (const dayShift of [-1, 0, 1]) {
+      const candidate = new Date(candidateMs + dayShift * 86400000);
+      if (localDateKey(candidate) === targetDateKey) return candidate;
+    }
+    return null;
+  };
 
   const calc = (isSunrise: boolean): Date | null => {
     const zenith = 90.833 * rad;
@@ -147,8 +171,7 @@ export function sunTimes(lat: number, lon: number, date = new Date()) {
     H /= 15;
     const T = H + RA - 0.06571 * t - 6.622;
     const UT = ((T - lngHour) % 24 + 24) % 24;
-    const ms = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()) + UT * 3600000;
-    return new Date(ms);
+    return eventOnLocalDate(UT);
   };
 
   return { sunrise: calc(true), sunset: calc(false) };
