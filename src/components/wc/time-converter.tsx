@@ -1,6 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { ArrowRight } from "lucide-react";
-import { CITIES, formatOffset, tzOffsetMinutes } from "@/lib/timezones";
+import {
+  CITIES,
+  formatOffset,
+  resolveLocalDateTime,
+  tzOffsetMinutes,
+} from "@/lib/timezones";
 
 function dateISOInZone(timeZone: string, date = new Date()) {
   const parts = Object.fromEntries(
@@ -22,6 +27,10 @@ export function TimeConverter() {
   const [time, setTime] = useState("09:00");
   const [date, setDate] = useState(() => dateISOInZone("Europe/London"));
   const [followsToday, setFollowsToday] = useState(true);
+  const [occurrenceChoice, setOccurrenceChoice] = useState<{
+    inputKey: string;
+    instantMs: number;
+  } | null>(null);
 
   useEffect(() => {
     if (!followsToday) return;
@@ -36,16 +45,23 @@ export function TimeConverter() {
     return () => window.clearInterval(interval);
   }, [fromTz, followsToday]);
 
+  const inputKey = `${fromTz}|${date}|${time}`;
+  const resolution = useMemo(
+    () => resolveLocalDateTime(fromTz, date, time),
+    [fromTz, date, time],
+  );
+  const selectedInstantMs =
+    resolution.kind === "unique"
+      ? resolution.match.instant.getTime()
+      : resolution.kind === "ambiguous" && occurrenceChoice?.inputKey === inputKey
+        ? (resolution.matches.find(
+            (match) => match.instant.getTime() === occurrenceChoice.instantMs,
+          )?.instant.getTime() ?? null)
+        : null;
+
   const result = useMemo(() => {
-    if (!date) return null;
-    const [y, mo, d] = date.split("-").map(Number);
-    const [h, mi] = time.split(":").map(Number);
-    if ([y, mo, d, h, mi].some((n) => Number.isNaN(n))) return null;
-    const guess = Date.UTC(y!, mo! - 1, d!, h!, mi!);
-    // resolve wall-clock time in the source zone to a real instant
-    let instant = guess - tzOffsetMinutes(fromTz, new Date(guess)) * 60000;
-    instant = guess - tzOffsetMinutes(fromTz, new Date(instant)) * 60000;
-    const target = new Date(instant);
+    if (selectedInstantMs === null) return null;
+    const target = new Date(selectedInstantMs);
     return {
       time: new Intl.DateTimeFormat("en-GB", {
         timeZone: toTz,
@@ -61,7 +77,7 @@ export function TimeConverter() {
       }).format(target),
       diff: (tzOffsetMinutes(toTz, target) - tzOffsetMinutes(fromTz, target)) / 60,
     };
-  }, [fromTz, toTz, time, date]);
+  }, [fromTz, toTz, selectedInstantMs]);
 
   return (
     <div className="card-soft grid gap-6 p-6 sm:p-8 md:grid-cols-[1fr_auto_1fr] md:items-end">
@@ -102,6 +118,42 @@ export function TimeConverter() {
             className="tnum h-12 w-full rounded-[calc(var(--radius)-6px)] border border-hairline bg-surface px-4 text-base outline-none transition-colors focus:border-ring"
           />
         </Field>
+        {resolution.kind === "nonexistent" && (
+          <p role="status" className="text-xs text-muted-foreground">
+            This local time does not exist in {fromTz} on this date because clocks move forward for
+            daylight saving time. Choose a different time.
+          </p>
+        )}
+        {resolution.kind === "ambiguous" && (
+          <Field label="Occurrence" id="conv-occurrence">
+            <select
+              id="conv-occurrence"
+              value={
+                occurrenceChoice?.inputKey === inputKey ? String(occurrenceChoice.instantMs) : ""
+              }
+              onChange={(e) => {
+                const instantMs = Number(e.target.value);
+                setOccurrenceChoice(
+                  Number.isFinite(instantMs) && e.target.value
+                    ? { inputKey, instantMs }
+                    : null,
+                );
+              }}
+              className="h-12 w-full rounded-[calc(var(--radius)-6px)] border border-hairline bg-surface px-4 text-base outline-none transition-colors focus:border-ring"
+            >
+              <option value="">Choose which occurrence</option>
+              {resolution.matches.map((match, index) => (
+                <option key={match.instant.getTime()} value={match.instant.getTime()}>
+                  {index === 0 ? "First" : index === 1 ? "Second" : `Occurrence ${index + 1}`} —{" "}
+                  {match.abbreviation} ({formatOffset(match.offsetMinutes)})
+                </option>
+              ))}
+            </select>
+            <p className="mt-1.5 text-xs text-muted-foreground">
+              This local time occurs twice because the clocks move back. Choose one to convert it.
+            </p>
+          </Field>
+        )}
       </div>
 
       <div className="flex justify-center pb-2 text-muted-foreground" aria-hidden="true">

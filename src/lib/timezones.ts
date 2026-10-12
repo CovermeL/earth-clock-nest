@@ -58,6 +58,122 @@ export function tzOffsetMinutes(tz: string, date = new Date()): number {
   return Math.round((asUTC - date.getTime()) / 60000);
 }
 
+export type LocalDateTimeMatch = {
+  instant: Date;
+  offsetMinutes: number;
+  abbreviation: string;
+};
+
+export type LocalDateTimeResolution =
+  | { kind: "invalid" }
+  | { kind: "nonexistent" }
+  | { kind: "unique"; match: LocalDateTimeMatch }
+  | { kind: "ambiguous"; matches: LocalDateTimeMatch[] };
+
+/** Resolve a local wall-clock date and time to every matching instant in an IANA time zone. */
+export function resolveLocalDateTime(
+  tz: string,
+  date: string,
+  time: string,
+): LocalDateTimeResolution {
+  const dateMatch = /^(\d{4})-(\d{2})-(\d{2})$/.exec(date);
+  const timeMatch = /^(\d{2}):(\d{2})$/.exec(time);
+  if (!dateMatch || !timeMatch) return { kind: "invalid" };
+
+  const [, yearText, monthText, dayText] = dateMatch;
+  const [, hourText, minuteText] = timeMatch;
+  const year = Number(yearText);
+  const month = Number(monthText);
+  const day = Number(dayText);
+  const hour = Number(hourText);
+  const minute = Number(minuteText);
+  if (month < 1 || month > 12 || day < 1 || day > 31 || hour > 23 || minute > 59) {
+    return { kind: "invalid" };
+  }
+
+  const wallClock = new Date(0);
+  wallClock.setUTCFullYear(year, month - 1, day);
+  wallClock.setUTCHours(hour, minute, 0, 0);
+  if (
+    wallClock.getUTCFullYear() !== year ||
+    wallClock.getUTCMonth() !== month - 1 ||
+    wallClock.getUTCDate() !== day
+  ) {
+    return { kind: "invalid" };
+  }
+
+  const wallClockMs = wallClock.getTime();
+  const offsetFormatter = new Intl.DateTimeFormat("en-US", {
+    timeZone: tz,
+    hour12: false,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  });
+  const offsetAt = (instant: Date) => {
+    const parts = Object.fromEntries(
+      offsetFormatter.formatToParts(instant).map((part) => [part.type, part.value]),
+    );
+    const asUTC = new Date(0);
+    asUTC.setUTCFullYear(
+      Number(parts.year),
+      Number(parts.month) - 1,
+      Number(parts.day),
+    );
+    asUTC.setUTCHours(
+      Number(parts.hour) % 24,
+      Number(parts.minute),
+      Number(parts.second),
+      0,
+    );
+    return Math.round((asUTC.getTime() - instant.getTime()) / 60_000);
+  };
+  const offsets = new Set<number>();
+  const searchWindow = 48 * 60 * 60 * 1000;
+  const sampleInterval = 3 * 60 * 60 * 1000;
+  for (let delta = -searchWindow; delta <= searchWindow; delta += sampleInterval) {
+    offsets.add(offsetAt(new Date(wallClockMs + delta)));
+  }
+
+  const localFormatter = new Intl.DateTimeFormat("en-US-u-ca-gregory-nu-latn", {
+    timeZone: tz,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    hourCycle: "h23",
+  });
+  const matches: LocalDateTimeMatch[] = [];
+  for (const offsetMinutes of offsets) {
+    const instant = new Date(wallClockMs - offsetMinutes * 60_000);
+    const parts = Object.fromEntries(
+      localFormatter.formatToParts(instant).map((part) => [part.type, part.value]),
+    );
+    if (
+      Number(parts.year) === year &&
+      Number(parts.month) === month &&
+      Number(parts.day) === day &&
+      Number(parts.hour) === hour &&
+      Number(parts.minute) === minute
+    ) {
+      matches.push({
+        instant,
+        offsetMinutes,
+        abbreviation: tzAbbreviation(tz, instant),
+      });
+    }
+  }
+
+  matches.sort((a, b) => a.instant.getTime() - b.instant.getTime());
+  if (matches.length === 0) return { kind: "nonexistent" };
+  if (matches.length === 1) return { kind: "unique", match: matches[0]! };
+  return { kind: "ambiguous", matches };
+}
+
 export function formatOffset(minutes: number): string {
   const sign = minutes < 0 ? "-" : "+";
   const abs = Math.abs(minutes);
