@@ -17,7 +17,7 @@ function dateISOInZone(timeZone: string, date = new Date()) {
     })
       .formatToParts(date)
       .map((part) => [part.type, part.value]),
-  );
+  ) as Record<"year" | "month" | "day", string>;
   return `${parts.year}-${parts.month}-${parts.day}`;
 }
 

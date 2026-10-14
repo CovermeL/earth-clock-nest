@@ -116,7 +116,7 @@ export function resolveLocalDateTime(
   const offsetAt = (instant: Date) => {
     const parts = Object.fromEntries(
       offsetFormatter.formatToParts(instant).map((part) => [part.type, part.value]),
-    );
+    ) as Record<"year" | "month" | "day" | "hour" | "minute" | "second", string>;
     const asUTC = new Date(0);
     asUTC.setUTCFullYear(
       Number(parts.year),
@@ -152,7 +152,7 @@ export function resolveLocalDateTime(
     const instant = new Date(wallClockMs - offsetMinutes * 60_000);
     const parts = Object.fromEntries(
       localFormatter.formatToParts(instant).map((part) => [part.type, part.value]),
-    );
+    ) as Record<"year" | "month" | "day" | "hour" | "minute" | "second", string>;
     if (
       Number(parts.year) === year &&
       Number(parts.month) === month &&
