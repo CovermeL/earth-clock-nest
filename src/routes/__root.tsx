@@ -77,13 +77,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Earthclock.fyi — Earth Clock: Live Local Times & Time Zones" },
+      { title: "Earthclock.fyi — Live Local Times & Time Zones" },
       {
         name: "description",
         content:
           "Earthclock.fyi is a live world clock with local times, UTC offsets, daylight saving status, a time zone converter and sunrise & sunset times.",
       },
-      { property: "og:title", content: "Earthclock.fyi — Earth Clock: Live Local Times & Time Zones" },
+      { property: "og:title", content: "Earthclock.fyi — Live Local Times & Time Zones" },
       {
         property: "og:description",
         content:

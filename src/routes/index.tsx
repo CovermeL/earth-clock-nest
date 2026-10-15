@@ -33,7 +33,7 @@ export const Route = createFileRoute("/")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "WebSite",
-          name: "Earth Clock",
+          name: "Earthclock.fyi",
           description: DESCRIPTION,
         }),
       },
