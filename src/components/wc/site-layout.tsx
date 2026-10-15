@@ -13,21 +13,21 @@ export function SiteLayout({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen bg-background">
       <header className="sticky top-0 z-30 border-b border-hairline/70 bg-background/80 backdrop-blur-md">
-        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-5">
+        <div className="mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)] items-center gap-3 px-5 py-3 sm:flex sm:h-16 sm:justify-between sm:gap-4 sm:py-0">
           <Link to="/" className="flex shrink-0 items-center gap-2 font-semibold tracking-[-0.02em]">
             <Globe className="size-5 text-muted-foreground" aria-hidden="true" />
             Earthclock.fyi
           </Link>
           <nav
             aria-label="Main"
-            className="-mx-1 flex gap-5 overflow-x-auto px-1 text-sm text-muted-foreground"
+            className="-mx-1 flex min-w-0 gap-5 overflow-x-auto px-1 text-sm text-muted-foreground"
           >
             {NAV.map((item) => (
               <Link
                 key={item.to}
                 to={item.to}
                 activeProps={{ className: "text-foreground font-medium" }}
-                className="whitespace-nowrap transition-colors hover:text-foreground"
+                className="shrink-0 whitespace-nowrap transition-colors hover:text-foreground"
               >
                 {item.label}
               </Link>

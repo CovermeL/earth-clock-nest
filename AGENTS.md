@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- The shared header uses a separate horizontally scrollable navigation row below the desktop breakpoint, with nonshrinking links, to keep every destination reachable on narrow screens while retaining the desktop row.
