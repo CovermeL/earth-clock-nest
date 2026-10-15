@@ -9,4 +9,4 @@
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
 
-- The shared header uses a separate horizontally scrollable navigation row below the desktop breakpoint, with nonshrinking links, to keep every destination reachable on narrow screens while retaining the desktop row.
+- The shared header uses a separate two-column navigation grid below the desktop breakpoint, with nonshrinking links, to show every destination fully on narrow screens while retaining the desktop row.

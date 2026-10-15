@@ -20,7 +20,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
           </Link>
           <nav
             aria-label="Main"
-            className="-mx-1 flex min-w-0 gap-5 overflow-x-auto px-1 text-sm text-muted-foreground"
+            className="-mx-1 grid min-w-0 grid-cols-[auto_auto] justify-start gap-x-5 gap-y-3 px-1 text-sm text-muted-foreground sm:flex sm:gap-5"
           >
             {NAV.map((item) => (
               <Link
