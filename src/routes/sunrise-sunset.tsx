@@ -57,13 +57,9 @@ function SunPage() {
         </PageSection>
 
         <AdSlot
-
           placement="sunrise-sunset-inline"
-
           label="Sponsored placement"
-
           format="inline"
-
         />
 
         <PageSection
@@ -75,13 +71,9 @@ function SunPage() {
         </PageSection>
 
         <AdSlot
-
           placement="sunrise-sunset-footer"
-
           label="Sponsored placement"
-
           format="footer"
-
         />
       </div>
     </SiteLayout>

@@ -57,13 +57,9 @@ function ConverterPage() {
         </PageSection>
 
         <AdSlot
-
           placement="converter-inline"
-
           label="Sponsored placement"
-
           format="inline"
-
         />
 
         <PageSection id="popular" title="Frequently converted zones">

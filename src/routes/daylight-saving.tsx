@@ -58,13 +58,9 @@ function DstPage() {
         </PageSection>
 
         <AdSlot
-
           placement="daylight-saving-inline"
-
           label="Sponsored placement"
-
           format="inline"
-
         />
 
         <PageSection
@@ -76,13 +72,9 @@ function DstPage() {
         </PageSection>
 
         <AdSlot
-
           placement="daylight-saving-footer"
-
           label="Sponsored placement"
-
           format="footer"
-
         />
       </div>
     </SiteLayout>

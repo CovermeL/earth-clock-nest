@@ -70,13 +70,9 @@ function WorldClocksPage() {
         </PageSection>
 
         <AdSlot
-
           placement="world-clocks-inline"
-
           label="Sponsored placement"
-
           format="inline"
-
         />
 
         <PageSection
@@ -88,13 +84,9 @@ function WorldClocksPage() {
         </PageSection>
 
         <AdSlot
-
           placement="world-clocks-footer"
-
           label="Sponsored placement"
-
           format="footer"
-
         />
       </div>
     </SiteLayout>
