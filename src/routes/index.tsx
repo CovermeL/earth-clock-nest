@@ -79,7 +79,11 @@ function Index() {
         </section>
 
         <div className="mt-14">
-          <AdSlot placement="home-leaderboard" label="Sponsored placement" format="leaderboard" />
+          <AdSlot
+            placement="home-leaderboard"
+            label="Sponsored placement"
+            format="leaderboard"
+          />
         </div>
 
         <div className="mt-20 space-y-20">

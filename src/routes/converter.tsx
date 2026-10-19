@@ -40,7 +40,11 @@ function ConverterPage() {
       />
 
       <div className="mt-10">
-        <AdSlot placement="converter-leaderboard" label="Sponsored placement" format="leaderboard" />
+        <AdSlot
+          placement="converter-leaderboard"
+          label="Sponsored placement"
+          format="leaderboard"
+        />
       </div>
 
       <div className="mt-14 space-y-16">
@@ -52,7 +56,15 @@ function ConverterPage() {
           <TimeConverter />
         </PageSection>
 
-        <AdSlot placement="converter-inline" label="Sponsored placement" format="inline" />
+        <AdSlot
+
+          placement="converter-inline"
+
+          label="Sponsored placement"
+
+          format="inline"
+
+        />
 
         <PageSection id="popular" title="Frequently converted zones">
           <PopularCities />
