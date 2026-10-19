@@ -45,7 +45,7 @@ function WorldClocksPage() {
       />
 
       <div className="mt-10">
-        <AdSlot label="Sponsored placement" format="leaderboard" />
+        <AdSlot placement="world-clocks-leaderboard" label="Sponsored placement" format="leaderboard" />
       </div>
 
       <div className="mt-14 space-y-16">
@@ -65,7 +65,7 @@ function WorldClocksPage() {
           <WorldClockGrid cities={cities} />
         </PageSection>
 
-        <AdSlot label="Sponsored placement" format="inline" />
+        <AdSlot placement="world-clocks-inline" label="Sponsored placement" format="inline" />
 
         <PageSection
           id="regions"
@@ -75,7 +75,7 @@ function WorldClocksPage() {
           <WorldClockGrid cities={CITIES.slice(12)} />
         </PageSection>
 
-        <AdSlot label="Sponsored placement" format="footer" />
+        <AdSlot placement="world-clocks-footer" label="Sponsored placement" format="footer" />
       </div>
     </SiteLayout>
   );
