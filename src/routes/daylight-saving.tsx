@@ -57,11 +57,7 @@ function DstPage() {
           <DstPanel />
         </PageSection>
 
-        <AdSlot
-          placement="daylight-saving-inline"
-          label="Sponsored placement"
-          format="inline"
-        />
+        <AdSlot placement="daylight-saving-inline" label="Sponsored placement" format="inline" />
 
         <PageSection
           id="affected"
@@ -71,11 +67,7 @@ function DstPage() {
           <WorldClockGrid cities={CITIES.slice(0, 8)} />
         </PageSection>
 
-        <AdSlot
-          placement="daylight-saving-footer"
-          label="Sponsored placement"
-          format="footer"
-        />
+        <AdSlot placement="daylight-saving-footer" label="Sponsored placement" format="footer" />
       </div>
     </SiteLayout>
   );

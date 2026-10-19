@@ -69,11 +69,7 @@ function WorldClocksPage() {
           <WorldClockGrid cities={cities} />
         </PageSection>
 
-        <AdSlot
-          placement="world-clocks-inline"
-          label="Sponsored placement"
-          format="inline"
-        />
+        <AdSlot placement="world-clocks-inline" label="Sponsored placement" format="inline" />
 
         <PageSection
           id="regions"
@@ -83,11 +79,7 @@ function WorldClocksPage() {
           <WorldClockGrid cities={CITIES.slice(12)} />
         </PageSection>
 
-        <AdSlot
-          placement="world-clocks-footer"
-          label="Sponsored placement"
-          format="footer"
-        />
+        <AdSlot placement="world-clocks-footer" label="Sponsored placement" format="footer" />
       </div>
     </SiteLayout>
   );

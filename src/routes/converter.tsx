@@ -56,11 +56,7 @@ function ConverterPage() {
           <TimeConverter />
         </PageSection>
 
-        <AdSlot
-          placement="converter-inline"
-          label="Sponsored placement"
-          format="inline"
-        />
+        <AdSlot placement="converter-inline" label="Sponsored placement" format="inline" />
 
         <PageSection id="popular" title="Frequently converted zones">
           <PopularCities />

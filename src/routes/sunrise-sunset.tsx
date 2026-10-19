@@ -56,11 +56,7 @@ function SunPage() {
           <SunTimes cities={CITIES.slice(0, 8)} />
         </PageSection>
 
-        <AdSlot
-          placement="sunrise-sunset-inline"
-          label="Sponsored placement"
-          format="inline"
-        />
+        <AdSlot placement="sunrise-sunset-inline" label="Sponsored placement" format="inline" />
 
         <PageSection
           id="more"
@@ -70,11 +66,7 @@ function SunPage() {
           <SunTimes cities={CITIES.slice(8, 16)} />
         </PageSection>
 
-        <AdSlot
-          placement="sunrise-sunset-footer"
-          label="Sponsored placement"
-          format="footer"
-        />
+        <AdSlot placement="sunrise-sunset-footer" label="Sponsored placement" format="footer" />
       </div>
     </SiteLayout>
   );
