@@ -57,13 +57,18 @@ export function AdSlot({ placement, label, format = "inline" }: AdSlotProps) {
           )}
           <span className="min-w-0 break-words">
             <span className="block text-sm font-semibold">{sponsor.advertiser}</span>
-            <span className="mt-1 block text-sm leading-relaxed text-muted-foreground">{sponsor.message}</span>
+            <span className="mt-1 block text-sm leading-relaxed text-muted-foreground">
+              {sponsor.message}
+            </span>
           </span>
         </a>
       ) : (
         <>
           <span className="text-sm text-muted-foreground">{label}</span>
-          <Link to="/advertise" className="mt-1 text-xs text-muted-foreground underline underline-offset-4 hover:text-foreground">
+          <Link
+            to="/advertise"
+            className="mt-1 text-xs text-muted-foreground underline underline-offset-4 hover:text-foreground"
+          >
             Founding Sponsor opportunities
           </Link>
         </>

@@ -38,11 +38,36 @@ export type SponsorCampaign = {
 export const SPONSOR_CAMPAIGNS: readonly SponsorCampaign[] = [];
 
 export const FOUNDING_PACKAGES = [
-  { name: "Standard Placement", priceCad: 250, days: 30, description: "One standard advertising position on an agreed page." },
-  { name: "Premium Homepage Placement", priceCad: 500, days: 30, description: "The prominent advertising position on the homepage." },
-  { name: "Section Sponsorship", priceCad: 500, days: 30, description: "An agreed sponsorship placement alongside one of our time tools." },
-  { name: "Multi-Page Sponsorship", priceCad: 1000, days: 30, description: "A coordinated presence across an agreed selection of pages." },
-  { name: "Exclusive Earthclock Sponsor", priceCad: 1500, days: 30, description: "Exclusive direct sponsorship across the site's existing advertising positions." },
+  {
+    name: "Standard Placement",
+    priceCad: 250,
+    days: 30,
+    description: "One standard advertising position on an agreed page.",
+  },
+  {
+    name: "Premium Homepage Placement",
+    priceCad: 500,
+    days: 30,
+    description: "The prominent advertising position on the homepage.",
+  },
+  {
+    name: "Section Sponsorship",
+    priceCad: 500,
+    days: 30,
+    description: "An agreed sponsorship placement alongside one of our time tools.",
+  },
+  {
+    name: "Multi-Page Sponsorship",
+    priceCad: 1000,
+    days: 30,
+    description: "A coordinated presence across an agreed selection of pages.",
+  },
+  {
+    name: "Exclusive Earthclock Sponsor",
+    priceCad: 1500,
+    days: 30,
+    description: "Exclusive direct sponsorship across the site's existing advertising positions.",
+  },
 ] as const;
 
 export function isSafeSponsorUrl(value: string): boolean {
@@ -70,10 +95,16 @@ export function getActiveSponsor(
   return campaigns.find((campaign) => {
     const start = utcDate(campaign.startDate);
     const end = utcDate(campaign.endDate);
-    return campaign.placement === placement &&
-      campaign.advertiser.trim().length > 0 && campaign.message.trim().length > 0 &&
+    return (
+      campaign.placement === placement &&
+      campaign.advertiser.trim().length > 0 &&
+      campaign.message.trim().length > 0 &&
       isSafeSponsorUrl(campaign.destinationUrl) &&
-      start !== null && end !== null && end >= start &&
-      time >= start && time < end + 86_400_000;
+      start !== null &&
+      end !== null &&
+      end >= start &&
+      time >= start &&
+      time < end + 86_400_000
+    );
   });
 }
