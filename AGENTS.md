@@ -10,3 +10,4 @@
 <!-- LOVABLE:END -->
 
 - The shared header uses a separate two-column navigation grid below the desktop breakpoint, with nonshrinking links, to show every destination fully on narrow screens while retaining the desktop row.
+- Direct sponsorships use the typed configuration in src/lib/advertising.ts and the shared AdSlot with explicit placement IDs; UTC-inclusive dates and HTTPS-only links keep campaign selection predictable without a backend.

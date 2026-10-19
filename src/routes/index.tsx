@@ -79,7 +79,7 @@ function Index() {
         </section>
 
         <div className="mt-14">
-          <AdSlot label="Sponsored placement" format="leaderboard" />
+          <AdSlot placement="home-leaderboard" label="Sponsored placement" format="leaderboard" />
         </div>
 
         <div className="mt-20 space-y-20">
@@ -101,7 +101,7 @@ function Index() {
             <TimeConverter />
           </Section>
 
-          <AdSlot label="Sponsored placement" format="inline" />
+          <AdSlot placement="home-inline" label="Sponsored placement" format="inline" />
 
           <Section
             id="dst"
@@ -129,7 +129,7 @@ function Index() {
             <PopularCities />
           </Section>
 
-          <AdSlot label="Sponsored placement" format="footer" />
+          <AdSlot placement="home-footer" label="Sponsored placement" format="footer" />
         </div>
       </>
     </SiteLayout>

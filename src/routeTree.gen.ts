@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdvertiseRouteImport } from './routes/advertise'
 import { Route as ConverterRouteImport } from './routes/converter'
 import { Route as DaylightSavingRouteImport } from './routes/daylight-saving'
 import { Route as PrivacyRouteImport } from './routes/privacy'
@@ -19,6 +20,11 @@ import { Route as WorldClocksRouteImport } from './routes/world-clocks'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdvertiseRoute = AdvertiseRouteImport.update({
+  id: '/advertise',
+  path: '/advertise',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ConverterRoute = ConverterRouteImport.update({
@@ -49,6 +55,7 @@ const WorldClocksRoute = WorldClocksRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/advertise': typeof AdvertiseRoute
   '/converter': typeof ConverterRoute
   '/daylight-saving': typeof DaylightSavingRoute
   '/privacy': typeof PrivacyRoute
@@ -57,6 +64,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/advertise': typeof AdvertiseRoute
   '/converter': typeof ConverterRoute
   '/daylight-saving': typeof DaylightSavingRoute
   '/privacy': typeof PrivacyRoute
@@ -66,6 +74,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/advertise': typeof AdvertiseRoute
   '/converter': typeof ConverterRoute
   '/daylight-saving': typeof DaylightSavingRoute
   '/privacy': typeof PrivacyRoute
@@ -76,6 +85,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/advertise'
     | '/converter'
     | '/daylight-saving'
     | '/privacy'
@@ -84,6 +94,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/advertise'
     | '/converter'
     | '/daylight-saving'
     | '/privacy'
@@ -92,6 +103,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/advertise'
     | '/converter'
     | '/daylight-saving'
     | '/privacy'
@@ -101,6 +113,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdvertiseRoute: typeof AdvertiseRoute
   ConverterRoute: typeof ConverterRoute
   DaylightSavingRoute: typeof DaylightSavingRoute
   PrivacyRoute: typeof PrivacyRoute
@@ -115,6 +128,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/advertise': {
+      id: '/advertise'
+      path: '/advertise'
+      fullPath: '/advertise'
+      preLoaderRoute: typeof AdvertiseRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/converter': {
@@ -157,6 +177,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdvertiseRoute: AdvertiseRoute,
   ConverterRoute: ConverterRoute,
   DaylightSavingRoute: DaylightSavingRoute,
   PrivacyRoute: PrivacyRoute,
