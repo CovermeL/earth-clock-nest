@@ -99,8 +99,14 @@ function AdvertisePage() {
 
         <PageSection id="contact" title="Sponsorship enquiries">
           <p className="max-w-3xl text-sm leading-relaxed text-muted-foreground">
-            Sponsorship enquiries are not yet open. Contact details will be available here before
-            the Founding Sponsor program launches.
+            To discuss a Founding Sponsor placement, availability, or campaign dates, please email{" "}
+            <a
+              href="mailto:advertise@earthclock.fyi"
+              className="font-medium text-foreground underline underline-offset-4"
+            >
+              advertise@earthclock.fyi
+            </a>
+            .
           </p>
         </PageSection>
       </div>
