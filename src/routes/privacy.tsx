@@ -28,7 +28,7 @@ export const Route = createFileRoute("/privacy")({
 });
 
 function PrivacyPage() {
-  const lastUpdated = "September 24, 2026";
+  const lastUpdated = "October 20, 2026";
 
   return (
     <SiteLayout>
@@ -62,23 +62,16 @@ function PrivacyPage() {
         <PageSection
           id="cookies"
           title="Cookies"
-          description="Small files stored on your device to remember preferences and enable core features."
+          description="Cookies and browser storage currently used by Earthclock.fyi."
         >
           <div className="space-y-4 text-sm leading-relaxed text-muted-foreground">
             <p>
-              Earthclock.fyi uses cookies and similar technologies to operate the
-              site. Cookies are small text files placed on your device that allow
-              the site to function and to understand how it is used.
-            </p>
-            <p>
-              The local time displayed on the homepage is determined from your
-              browser's time zone setting; a cookie or browser storage may remember
-              a city you have selected so it can be shown again on a later visit.
-            </p>
-            <p>
-              You can clear or block cookies through your browser settings.
-              Disabling cookies may affect some site features, such as remembering a
-              selected city.
+              Earthclock.fyi currently does not set cookies. It does not currently
+              store visitor preferences in localStorage, sessionStorage, IndexedDB,
+              or similar persistent browser storage. A city you select is not saved
+              between visits or page refreshes. Your local time and time zone are
+              determined from your browser each time you visit and are not stored by
+              Earthclock.fyi.
             </p>
           </div>
         </PageSection>
@@ -86,47 +79,35 @@ function PrivacyPage() {
         <PageSection
           id="analytics"
           title="Analytics"
-          description="Aggregated, anonymized measurement of how the site is used."
+          description="Client-side visitor analytics and hosting infrastructure."
         >
           <div className="space-y-4 text-sm leading-relaxed text-muted-foreground">
             <p>
-              We may use Google Analytics or a similar measurement service to
-              understand aggregate usage — for example, which pages are visited, how
-              long visitors stay, and general geographic regions. This information is
-              reported in an aggregated, anonymized form and is not used to identify
-              you personally.
-            </p>
-            <p>
-              These services may set their own cookies to collect this data. You can
-              opt out of Google Analytics measurement by installing the Google
-              Analytics Opt-out Browser Add-on, or by blocking analytics cookies in
-              your browser.
+              Earthclock.fyi currently does not use Google Analytics or another
+              client-side visitor analytics or tracking service. Cloudflare provides
+              website hosting and delivery infrastructure and may process technical
+              information, such as IP addresses and request information, to operate
+              and secure that service. This infrastructure processing is not an
+              analytics product installed by Earthclock.fyi.
             </p>
           </div>
         </PageSection>
 
         <PageSection
           id="advertising"
-          title="Advertising & Google AdSense"
-          description="How ads may be shown and what that means for your privacy."
+          title="Advertising and sponsorship"
+          description="Current direct sponsor placements and related privacy practices."
         >
           <div className="space-y-4 text-sm leading-relaxed text-muted-foreground">
             <p>
-              Earthclock.fyi may display advertising provided by Google AdSense.
-              Third-party vendors, including Google, use cookies to serve ads based on
-              a user's prior visits to this and other websites.
-            </p>
-            <p>
-              Google's use of advertising cookies enables it and its partners to
-              serve ads based on your visit to this site and other sites on the
-              internet. You may opt out of personalized advertising by visiting Google
-              Ads Settings, and you can opt out of third-party vendor cookies through
-              the Network Advertising Initiative opt-out page.
-            </p>
-            <p>
-              Third-party vendors and ad networks may also serve ads on this site.
-              These vendors may use cookies and similar technologies to measure and
-              improve ad performance.
+              Earthclock.fyi currently offers direct sponsor placements rather than
+              advertising through Google AdSense or another third-party advertising
+              network. Sponsor placements are clearly identified as advertising.
+              Earthclock.fyi currently does not use advertising cookies, personalized
+              advertising, tracking pixels, or third-party ad-network scripts. A
+              sponsor link may take you to the advertiser's website, where the
+              advertiser's privacy policy and practices apply. These statements
+              describe current practices, which may change.
             </p>
           </div>
         </PageSection>
@@ -134,13 +115,13 @@ function PrivacyPage() {
         <PageSection
           id="third-party"
           title="Third-party services"
-          description="External providers that help run the site or measure its use."
+          description="External providers used to host, deliver, or support the site."
         >
           <div className="space-y-4 text-sm leading-relaxed text-muted-foreground">
             <p>
-              This site relies on third-party services that may include Google
-              Analytics, Google AdSense, font providers, and the platform that hosts
-              and delivers the website. These providers may collect information as
+              The website uses Cloudflare for hosting and delivery infrastructure. It
+              also uses Google Fonts, so your browser may connect to Google's servers
+              to retrieve font files. These providers may process information as
               described in their own privacy policies.
             </p>
             <p>
@@ -157,16 +138,16 @@ function PrivacyPage() {
         >
           <div className="space-y-4 text-sm leading-relaxed text-muted-foreground">
             <p>
-              Earthclock.fyi does not require you to create an account, log in, or
-              submit personal information to use the time zone tools. The site does
-              not knowingly collect names, email addresses, phone numbers, or other
-              identifying details from visitors.
-            </p>
-            <p>
-              Information collected automatically — such as IP address, browser
-              type, and pages visited — may be processed by the hosting platform,
-              analytics, and advertising providers as described in their respective
-              policies. We use this only to operate and improve the site.
+              You do not need an account or login to use Earthclock.fyi. The time
+              tools do not require you to submit identifying personal information.
+              Information you enter into search, time, or date fields is handled by
+              browser-based functionality and is not submitted through a visitor
+              account. Earthclock.fyi does not currently provide a general contact
+              form. If you voluntarily email advertise@earthclock.fyi, your email
+              address, message, and information you choose to include will be
+              received to handle and reply to that advertising or sponsorship
+              enquiry. Visiting the site alone does not send your email information
+              to an advertiser.
             </p>
           </div>
         </PageSection>
@@ -232,8 +213,16 @@ function PrivacyPage() {
         >
           <div className="space-y-4 text-sm leading-relaxed text-muted-foreground">
             <p>
-              If you have questions about this Privacy Policy, contact us through the
-              website. We will do our best to respond to legitimate inquiries.
+              For privacy questions related to advertising or sponsorship enquiries,
+              email{" "}
+              <a
+                href="mailto:advertise@earthclock.fyi"
+                className="text-foreground underline underline-offset-4"
+              >
+                advertise@earthclock.fyi
+              </a>
+              . Earthclock.fyi does not currently provide a separate general contact
+              form.
             </p>
           </div>
         </PageSection>
