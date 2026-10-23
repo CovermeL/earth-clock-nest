@@ -20,4 +20,12 @@
     <loc>https://earthclock.fyi/sunrise-sunset</loc>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://earthclock.fyi/privacy</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://earthclock.fyi/advertise</loc>
+    <priority>0.8</priority>
+  </url>
 </urlset>
