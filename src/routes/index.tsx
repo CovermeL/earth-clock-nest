@@ -21,6 +21,7 @@ export const Route = createFileRoute("/")({
     meta: [
       { title: TITLE },
       { name: "description", content: DESCRIPTION },
+      { name: "msvalidate.01", content: "D40648F5A3AF1AF8A17EB334D94F4187" },
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESCRIPTION },
       { property: "og:type", content: "website" },
